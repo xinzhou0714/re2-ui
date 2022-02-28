@@ -12,6 +12,10 @@
       Testing Mock2
     </el-button
     >
+    <el-button @click='testMock3' type='primary' icon='el-icon-edit'>
+      Testing Mock3
+    </el-button
+    >
     <el-button @click='resetInfo' type='primary' icon='el-icon-edit'>
       Reset
     </el-button
@@ -30,7 +34,9 @@
 <script>
 import axios from 'axios'
 
-require('@/mock/mock.js')
+if (process.env.NODE_ENV === 'dev-local-mock') {
+  require('@/mock/mock.js')
+}
 
 export default {
   name: 'Welcome',
@@ -53,6 +59,11 @@ export default {
     testMock2() {
       axios
         .get('http://localhost:8900/mock/test2')
+        .then((response) => (this.info = response))
+    },
+    testMock3() {
+      axios
+        .get('http://localhost:9999/project/list')
         .then((response) => (this.info = response))
     },
     resetInfo() {
