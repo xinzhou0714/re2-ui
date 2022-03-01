@@ -52,3 +52,28 @@ Mock.mock(process.env.VUE_APP_SERVER + '/project/list', 'get', {
     }
   ]
 })
+
+const mockUserInfo = {
+  status: 10000,
+  msg: 'mock data',
+  content: '@string(6)'
+}
+
+Mock.mock(
+  new RegExp(process.env.VUE_APP_SERVER + '/user/login'),
+  'post',
+  (opt) => {
+    console.log('/user/login', opt)
+    return Mock.mock(mockUserInfo)
+  }
+)
+
+Mock.mock(process.env.VUE_APP_SERVER + '/test/post', 'post', (option) => {
+  console.log('/test/post', option.body)
+  const data = JSON.parse(option.body)
+  if (data.ss === 1) {
+    return 'aaa'
+  } else {
+    return 'bbb'
+  }
+})

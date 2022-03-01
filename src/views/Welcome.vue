@@ -4,7 +4,19 @@
 
 <script>
 export default {
-  name: 'Welcome'
+  name: 'Welcome',
+  data() {
+    return {
+      msg: 'aaaa'
+    }
+  },
+  methods: {
+    test() {
+      this.$api.project.getList().then((res) => {
+        this.msg = res.data.content
+      })
+    }
+  }
 }
 </script>
 

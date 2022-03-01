@@ -1,31 +1,21 @@
 <template>
   <div class='welcome'>
-    <el-button @click='testAxios' type='primary' icon='el-icon-edit'>
-      Testing Axios
-    </el-button
-    >
-    <el-button @click='testMock1' type='primary' icon='el-icon-edit'>
-      Testing Mock1
-    </el-button
-    >
-    <el-button @click='testMock2' type='primary' icon='el-icon-edit'>
-      Testing Mock2
-    </el-button
-    >
-    <el-button @click='testMock3' type='primary' icon='el-icon-edit'>
-      Testing Mock3
-    </el-button
-    >
-    <el-button @click='resetInfo' type='primary' icon='el-icon-edit'>
-      Reset
-    </el-button
-    >
-    <el-button type='primary' icon='el-icon-share'></el-button>
-    <el-button type='primary' icon='el-icon-delete'></el-button>
-    <el-button type='primary' icon='el-icon-search'>Search</el-button>
-    <el-button type='primary'
-    >Upload<i class='el-icon-upload el-icon-right'></i
-    ></el-button>
+    <el-row>
+      <el-button @click='testAxios' type='primary'> Testing Axios</el-button>
+      <el-button @click='testMock1' type='primary'> Testing Mock1</el-button>
+      <el-button @click='testMock2' type='primary'> Testing Mock2</el-button>
+      <el-button @click='testMock3' type='primary'> Testing Mock3</el-button>
+      <el-button @click='testLogin' type='primary'> Testing login</el-button>
+      <el-button @click='testWrongLogin' type='primary'>
+        Testing wrong login
+      </el-button>
+    </el-row>
+
+    <el-row>
+      <el-button @click='testPostMock'> test post mock</el-button>
+      <el-button @click='testPostMock2'> test post mock2</el-button>
+    </el-row>
+    <el-button @click='resetInfo' type='primary'> Reset</el-button>
     <br />
     <pre>{{ info }}</pre>
   </div>
@@ -34,10 +24,6 @@
 <script>
 import axios from 'axios'
 import { getList } from '@/api/project'
-
-if (process.env.NODE_ENV === 'dev-local-mock') {
-  require('@/mock/mock.js')
-}
 
 export default {
   name: 'Welcome',
@@ -63,9 +49,37 @@ export default {
         .then((response) => (this.info = response))
     },
     testMock3() {
-      getList({}).then(
-        res => {
-          this.info = res.data.content
+      getList({}).then((res) => {
+        this.info = res.data.content
+      })
+    },
+    testLogin() {
+      this.$api.user.Login('tester1', '123456').then((res) => {
+        this.info = res
+      })
+    },
+    testWrongLogin() {
+      this.$api.user.Login('tester1', '123459').then((res) => {
+        this.info = res
+      })
+    },
+    testPostMock() {
+      this.$http.post('/test/post', {
+        ss: 1,
+        ss2: 2
+      }).then(
+        (res) => {
+          this.info = res
+        }
+      )
+    },
+    testPostMock2() {
+      this.$http.post('/test/post', {
+        ss: 2,
+        ss2: 2
+      }).then(
+        (res) => {
+          this.info = res
         }
       )
     },
