@@ -10,13 +10,45 @@ Mock.mock('http://localhost:8900/mock/test2', 'get', {
   'MyArray|1-5': ['Moc'] // random name
 })
 
-Mock.mock('http://localhost:9999/project/list', 'get', {
+Mock.mock(process.env.VUE_APP_SERVER + '/project/list', 'get', {
   status: 10000,
   msg: 'mock data',
-  'content|10': [
+  'content|5': [
     {
-      'id|+1': 1,
-      name: '@name'
+      'id|+1': '@increment(1)',
+      name: '@string(lower,8)',
+      detail: '@string(lower,16)',
+      ownerId: 1,
+      ownerName: '@name(true)',
+      createTime: '@datetime',
+      updateTime: '@datetime'
+    },
+    {
+      'id|+1': '@increment(1)',
+      name: '@string(lower,8)',
+      detail: '@string(lower,16)',
+      ownerId: 2,
+      ownerName: '@name(true)',
+      createTime: '@datetime',
+      updateTime: '@datetime'
+    },
+    {
+      'id|+1': '@increment(1)',
+      name: '@string(lower,8)',
+      detail: '@string(lower,16)',
+      ownerId: 3,
+      ownerName: '@name(true)',
+      createTime: '@datetime',
+      updateTime: '@datetime'
+    },
+    {
+      'id|+1': '@increment(1)',
+      name: '@string(lower,8)',
+      detail: '@string(lower,16)',
+      ownerId: 4,
+      ownerName: '@name(true)',
+      createTime: '@datetime',
+      updateTime: '@datetime'
     }
   ]
 })
