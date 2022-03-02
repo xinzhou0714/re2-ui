@@ -18,10 +18,7 @@ Vue.prototype.$http = service
 
 Vue.config.productionTip = false
 
-// conditionally enabling mock
-if (process.env.NODE_ENV === 'dev-local-mock') {
-  require('@/mock/mock.js')
-}
+require('@/mock/index')
 
 new Vue({
   router,
