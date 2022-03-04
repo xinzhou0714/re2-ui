@@ -5,8 +5,11 @@
 </template>
 
 <style lang="scss">
-#app {
+html, body, #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  height: 100%;
+  padding: 0;
+  margin: 0;
   color: #2c3e50;
 }
 </style>
