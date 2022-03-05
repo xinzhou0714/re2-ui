@@ -3,7 +3,7 @@
     <el-container>
       <el-header>
         <el-col :span="12" class="left-panel">
-          <img src="../assets/TU-Berlin-Logo.svg"  alt='Logo'/>
+          <img src="../assets/TU-Berlin-Logo.svg" alt="Logo" />
         </el-col>
         <el-col :span="12" class="right-panel">
           <el-avatar :src="user.avatar_url"></el-avatar>
@@ -14,8 +14,8 @@
       </el-main>
       <el-footer>
         <span><b>Copyright </b> @Xin Zhou</span>
-        <span>Masterarbeit: Prototypische Implementierung eines Software-Tools für Requirements Engineerings</span>
-        <span>Version 0.0.1</span>
+        <span>{{description}} </span>
+        <span>Version: {{ version }}</span>
       </el-footer>
     </el-container>
   </div>
@@ -30,6 +30,14 @@ export default {
         nickname: '',
         avatar_url: ''
       }
+    }
+  },
+  computed: {
+    description() {
+      return this.$store.state.app.appDescription
+    },
+    version() {
+      return this.$store.state.app.appVersion
     }
   }
 }
