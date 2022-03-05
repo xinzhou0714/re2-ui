@@ -6,6 +6,9 @@
           <img src="../assets/TU-Berlin-Logo.svg" alt="Logo" />
         </el-col>
         <el-col :span="12" class="right-panel">
+          <Icon icon="bxs:bell" width="30px" height="30px" />
+          <Icon icon="ant-design:fullscreen-outlined" width="30px" height="30px" />
+          <Icon icon="fa:language" width="30px" height="30px" />
           <el-avatar :src="user.avatar_url"></el-avatar>
         </el-col>
       </el-header>
@@ -14,7 +17,7 @@
       </el-main>
       <el-footer>
         <span><b>Copyright </b> @Xin Zhou</span>
-        <span>{{description}} </span>
+        <span>{{ description }} </span>
         <span>Version: {{ version }}</span>
       </el-footer>
     </el-container>
@@ -22,8 +25,12 @@
 </template>
 
 <script>
+import { Icon } from '@iconify/vue2'
 export default {
   name: 'Welcome',
+  components: {
+    Icon
+  },
   data() {
     return {
       user: {
