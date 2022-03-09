@@ -7,6 +7,8 @@
     "serve-real": "vue-cli-service serve --mode dev-local-real",
     "serve-mock": "vue-cli-service serve --mode dev-local-mock",
     "build": "vue-cli-service build",
+    "build-mock": "vue-cli-service build --mode dev-local-mock",
+    "push-vps": "scp -r dist/* root@38.242.193.43:/www",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
