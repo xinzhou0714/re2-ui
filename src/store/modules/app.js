@@ -1,3 +1,8 @@
+/*
+ * MODULE VUEX
+ * app
+ * =================================================
+ */
 export default {
   state: {
     appName: 're2-ui',

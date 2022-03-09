@@ -7,13 +7,17 @@
         </el-col>
         <el-col :span="12" class="right-panel">
           <Icon icon="bxs:bell" width="30px" height="30px" />
-          <Icon icon="ant-design:fullscreen-outlined" width="30px" height="30px" />
+          <Icon
+            icon="ant-design:fullscreen-outlined"
+            width="30px"
+            height="30px"
+          />
           <Icon icon="fa:language" width="30px" height="30px" />
           <el-avatar :src="user.avatar_url"></el-avatar>
         </el-col>
       </el-header>
       <el-main>
-        <span>Main</span>
+        <Project></Project>
       </el-main>
       <el-footer>
         <span><b>Copyright </b> @Xin Zhou</span>
@@ -26,10 +30,12 @@
 
 <script>
 import { Icon } from '@iconify/vue2'
+import Project from '@/components/project/index'
 export default {
   name: 'Welcome',
   components: {
-    Icon
+    Icon,
+    Project
   },
   data() {
     return {
