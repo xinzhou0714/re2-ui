@@ -6,6 +6,12 @@ import Login from '@/views/Login'
 import Welcome from '@/views/Welcome'
 import Home from '@/views/Home'
 
+// Child Views
+import Dashboard from '@/views/children/Dashboard'
+import Editor from '@/views/children/Editor'
+import TreeTable from '@/views/children/TreeTable'
+import Draft from '@/views/children/Draft'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -27,7 +33,29 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: Dashboard
+      },
+      {
+        path: 'editor',
+        name: 'editor',
+        component: Editor
+      },
+      {
+        path: 'tree-table',
+        name: 'tree-table',
+        component: TreeTable
+      },
+      {
+        path: 'draft',
+        name: 'draft',
+        component: Draft
+      }
+    ]
   }
 ]
 
