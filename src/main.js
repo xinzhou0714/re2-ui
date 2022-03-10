@@ -11,7 +11,14 @@ import api from '@/api/api'
 // axios
 import service from '@/utils/request'
 
+// vxe-table v3
+import 'xe-utils'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
+
 Vue.use(ElementUI)
+// vxe-table v3
+Vue.use(VXETable)
 
 Vue.prototype.$api = api
 Vue.prototype.$http = service
