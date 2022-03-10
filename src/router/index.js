@@ -12,6 +12,12 @@ import Editor from '@/views/children/Editor'
 import TreeTable from '@/views/children/TreeTable'
 import Draft from '@/views/children/Draft'
 
+// fix Error: avoided redundant navigation to current location: “/xxx”
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err)
+}
 Vue.use(VueRouter)
 
 const routes = [
