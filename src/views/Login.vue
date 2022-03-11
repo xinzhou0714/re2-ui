@@ -30,6 +30,7 @@
 
 <script>
 import md5 from 'js-md5'
+import { mapActions } from 'vuex'
 export default {
   name: 'Login',
   data() {
@@ -58,6 +59,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['login']),
     onSubmit() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
@@ -68,21 +70,14 @@ export default {
           }
           // set  button state to loading
           this.loading = true
-          // do login
-          this.$api.user
-            .Login2(userData)
-            .then((response) => {
+          // call login action in vuex
+          this.login(userData).then((successed) => {
+            if (successed) {
+              this.$router.push('/')
+            } else {
               this.loading = false
-              // console.log(response)
-              if (response.data.status === 10000) {
-                this.$router.push('/')
-              } else {
-                this.$message.error('Login failed')
-              }
-            })
-            .catch(() => {
-              this.loading = false
-            })
+            }
+          })
         } else {
           console.log('error submit')
           return false

@@ -32,15 +32,26 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
+import Cookies from 'js-cookie'
 import { Icon } from '@iconify/vue2'
 export default {
   name: 'HeadBar',
   components: {
     Icon
   },
+  methods: {
+    ...mapMutations(['setCurrentUser'])
+  },
   computed: {
-    ...mapGetters(['getNickname', 'getAvatarUrl'])
+    ...mapGetters(['getNickname', 'getAvatarUrl', 'getUserKey'])
+  },
+  created() {
+    // console.log('headbar created')
+    if (Cookies.get(this.getUserKey)) {
+      // console.log('Cookies.get(this.getUserKey)', Cookies.get(this.getUserKey))
+      this.setCurrentUser(JSON.parse(Cookies.get(this.getUserKey)))
+    }
   }
 }
 </script>
