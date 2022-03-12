@@ -20,11 +20,18 @@
           </el-badge>
         </el-menu-item>
         <!--        user information-->
-        <el-menu-item>
+        <el-menu-item v-popover:popover-user>
           <span>
             {{ getNickname }}
             <el-avatar :src="getAvatarUrl"></el-avatar>
           </span>
+          <el-popover
+            ref="popover-user"
+            placement="bottom-end"
+            trigger="click"
+          >
+            <UserPanel></UserPanel>
+          </el-popover>
         </el-menu-item>
       </el-menu>
     </el-col>
@@ -35,10 +42,12 @@
 import { mapGetters, mapMutations } from 'vuex'
 import Cookies from 'js-cookie'
 import { Icon } from '@iconify/vue2'
+import UserPanel from '@/components/popovers/UserPanel'
 export default {
   name: 'HeadBar',
   components: {
-    Icon
+    Icon,
+    UserPanel
   },
   methods: {
     ...mapMutations(['setCurrentUser'])

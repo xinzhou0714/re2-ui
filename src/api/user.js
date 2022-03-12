@@ -17,3 +17,9 @@ export function Login2(data) {
   submitData.password = md5(submitData.password)
   return request.post('/user/login', submitData)
 }
+
+// logout
+
+export function Logout() {
+  return request.post('/user/logout')
+}

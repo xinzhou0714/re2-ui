@@ -6,6 +6,8 @@
 import Cookies from 'js-cookie'
 import axiosAPI from '@/api/api'
 import CONSTANT from '@/utils/constant'
+import router from '@/router'
+import { Message } from 'element-ui'
 
 const UserKey = CONSTANT.UserKey
 
@@ -44,13 +46,33 @@ export default {
             if (data.status === 10000) {
               commit('setCurrentUser', data.content)
               console.log('data.content', data.content)
-              resolve(true) // successed
+              resolve('successed') // successed
             } else {
-              resolve(false) // successed-> false
+              resolve('failed') // successed-> false
             }
           })
           .catch((error) => {
+            // throw error inside axios
             reject(error)
+          })
+      })
+    },
+    logout: ({ commit }) => {
+      return new Promise((resolve, reject) => {
+        axiosAPI.user
+          .Logout()
+          .then((response) => {
+            const { data } = response
+            if (data.status === 10000) {
+              commit('removeCurrentUser')
+              router.push('/login')
+              resolve() //  call method onFulfilled
+            }
+          })
+          .catch((error) => {
+            // throw error inside axios
+            Message.error('error from vuex-action: ' + 'nothing happens')
+            reject(error) //  call method onRejected
           })
       })
     }
