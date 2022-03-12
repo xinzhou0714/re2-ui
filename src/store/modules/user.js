@@ -5,8 +5,9 @@
  */
 import Cookies from 'js-cookie'
 import axiosAPI from '@/api/api'
+import CONSTANT from '@/utils/constant'
 
-const UserKey = 'currentUser'
+const UserKey = CONSTANT.UserKey
 
 export default {
   state: {
@@ -19,7 +20,7 @@ export default {
     getAvatarUrl(state) {
       return state.currentUser.avatarUrl
     },
-    getUserKey(state) {
+    getUserKey() {
       return UserKey
     }
   },

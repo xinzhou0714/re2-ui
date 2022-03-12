@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+// import utils
+import Cookies from 'js-cookie'
+import CONSTANT from '@/utils/constant'
+
+// Parent Views
 import Testing from '@/views/Testing'
 import Login from '@/views/Login'
 import Welcome from '@/views/Welcome'
@@ -67,6 +72,27 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+// Views do not need to login
+const whiteList = ['/login']
+
+// Router Guard
+// see more on: https://v3.router.vuejs.org/guide/advanced/navigation-guards.html
+router.beforeEach((to, from, next) => {
+  // determine whether the user has logged in
+  const hasCurrentUser = Cookies.get(CONSTANT.UserKey)
+  if (hasCurrentUser) {
+    next()
+  } else {
+    // has not login
+    // if in white list
+    if (whiteList.indexOf(to.path) !== -1) {
+      next()
+    } else {
+      next({ path: '/login' })
+    }
+  }
 })
 
 export default router
