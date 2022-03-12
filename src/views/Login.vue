@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import md5 from 'js-md5'
 import { mapActions } from 'vuex'
 export default {
   name: 'Login',
@@ -63,15 +62,10 @@ export default {
     onSubmit() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          // prepare data
-          const userData = {
-            username: this.loginForm.username,
-            password: md5(this.loginForm.password) // password can not be transfered with plaintext
-          }
           // set  button state to loading
           this.loading = true
           // call login action in vuex
-          this.login(userData).then((successed) => {
+          this.login(this.loginForm).then((successed) => {
             if (successed) {
               this.$router.push('/')
             } else {
@@ -110,7 +104,7 @@ export default {
       font-size: 64px;
       color: white;
       text-align: center;
-      margin: 20px 0px;
+      margin: 20px 0;
     }
 
     .login-panel {

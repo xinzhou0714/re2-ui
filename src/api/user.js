@@ -13,5 +13,7 @@ export function Login(username, rowPassword) {
 
 // login variant2: post a data body, without parameters
 export function Login2(data) {
-  return request.post('/user/login', data)
+  const submitData = Object.assign({}, data)
+  submitData.password = md5(submitData.password)
+  return request.post('/user/login', submitData)
 }
