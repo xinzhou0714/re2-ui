@@ -18,8 +18,8 @@
               type="primary"
               :loading="loading"
               @click="onSubmit"
-              >Login</el-button
-            >
+              >Login
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -30,6 +30,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+
 export default {
   name: 'Login',
   data() {
@@ -65,25 +66,9 @@ export default {
           // set  button state to loading
           this.loading = true
           // call login action in vuex
-          this.login(this.loginForm)
-            .then((value) => {
-              // when action was fulfilled
-              if (value === 'successed') {
-                this.$router.push('/')
-              } else {
-                // do nothing and reset button status
-                this.loading = false
-              }
-            })
-            .catch((error) => {
-              // when action was rejected
-              this.$message.error(
-                'error from vuex-action:' +
-                  error.message +
-                  '----> maybe backend does not support this REST-API'
-              )
-              this.loading = false
-            })
+          this.login(this.loginForm).finally(() => {
+            this.loading = false
+          })
         } else {
           console.log('error submit')
           return false
@@ -125,6 +110,7 @@ export default {
       background-color: #fffa;
       padding: 30px 40px;
       border-radius: 30px;
+
       ::v-deep .el-input__inner {
         //overrive style of input box from element-ui
         border-radius: 20px;

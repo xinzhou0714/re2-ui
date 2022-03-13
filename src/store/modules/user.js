@@ -45,11 +45,9 @@ export default {
             const { data } = response
             if (data.status === 10000) {
               commit('setCurrentUser', data.content)
-              console.log('data.content', data.content)
-              resolve('successed') // successed
-            } else {
-              resolve('failed') // successed-> false
+              router.push('/') // jump to welcome.vuw
             }
+            resolve()
           })
           .catch((error) => {
             // throw error inside axios
