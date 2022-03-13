@@ -24,6 +24,9 @@ export default {
     },
     getUserKey() {
       return UserKey
+    },
+    getUsername: (state) => {
+      return state.currentUser.username
     }
   },
   mutations: {

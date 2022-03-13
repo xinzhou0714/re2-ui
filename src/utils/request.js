@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+import store from '@/store'
+import md5 from 'js-md5'
 
 // create an axios instance
 const service = axios.create({
@@ -10,6 +12,11 @@ const service = axios.create({
 
 service.interceptors.request.use(
   (config) => {
+    // do something before request is sent
+    if (store.getters.getUsername) {
+      config.headers['X-Token'] = md5(store.getters.getUsername)
+    }
+
     Message.success('request sended')
     return config
   },
