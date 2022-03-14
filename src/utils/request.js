@@ -35,7 +35,11 @@ service.interceptors.response.use(
       Message.success(response.data.msg)
     } else {
       if (response.data.msg !== null) {
-        Message.error('error from REST-Controller: ' + response.data.msg)
+        if (response.data.status > 10000) {
+          Message.error('error from REST-Controller: ' + response.data.msg)
+        } else {
+          Message.error('error from Backend-Interceptor: ' + response.data.msg)
+        }
       }
     }
     return response
