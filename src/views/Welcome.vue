@@ -3,7 +3,7 @@
     <el-container>
       <el-header> <HeadBar></HeadBar> </el-header>
       <el-main>
-        <Project></Project>
+        <ProjectV2></ProjectV2>
       </el-main>
       <el-footer>
         <FootBar></FootBar>
@@ -13,15 +13,15 @@
 </template>
 
 <script>
-import Project from '@/components/project/index'
+import ProjectV2 from '@/components/project/ProjectV2'
 import HeadBar from '@/components/common/HeadBar'
 import FootBar from '@/components/common/FootBar'
 export default {
   name: 'Welcome',
   components: {
-    Project,
     HeadBar,
-    FootBar
+    FootBar,
+    ProjectV2
   },
   data() {
     return {

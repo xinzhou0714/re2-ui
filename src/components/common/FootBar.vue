@@ -1,8 +1,8 @@
 <template>
   <el-row class="footer-container" type="flex" justify="space-between">
-    <el-col :span="9"><b>Copyright:&nbsp; </b>  {{getAppAuthoer}}</el-col>
-    <el-col >{{getAppDescription}}</el-col>
-    <el-col :span="6" style='justify-content: flex-end;'><b>Version:&nbsp; </b> {{getAppVersion}}</el-col>
+    <el-col ><b>Copyright:&nbsp; </b>  {{getAppAuthoer}}</el-col>
+    <el-col :span='18' class='middle' >{{getAppDescription}}</el-col>
+    <el-col style='justify-content: flex-end;'><b>Version:&nbsp; </b> {{getAppVersion}}</el-col>
   </el-row>
 </template>
 
@@ -24,7 +24,13 @@ export default {
   .el-col {
     height: 100%;
     display: flex;
+    white-space: nowrap;
     align-items: center;
+  }
+  @media screen and (max-width: 900px) {
+    .middle {
+      display: none;
+    }
   }
 }
 </style>

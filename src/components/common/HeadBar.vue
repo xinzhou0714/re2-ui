@@ -1,9 +1,9 @@
 <template>
   <el-row class="header-container" type="flex" justify="space-between">
-    <el-col :span="9" class="left-panel">
+    <el-col :span="6" class="left-panel">
       <img src="@/assets/TU-Berlin-Logo.svg" alt="Logo" />
     </el-col>
-    <el-col :span="9" class="right-panel">
+    <el-col :span="18" class="right-panel">
       <el-menu mode="horizontal" background-color="#f0f0f0">
         <!--        theme picker-->
         <el-menu-item>
@@ -25,11 +25,7 @@
             {{ getNickname }}
             <el-avatar :src="getAvatarUrl"></el-avatar>
           </span>
-          <el-popover
-            ref="popover-user"
-            placement="bottom-end"
-            trigger="click"
-          >
+          <el-popover ref="popover-user" placement="bottom-end" trigger="click">
             <UserPanel></UserPanel>
           </el-popover>
         </el-menu-item>
@@ -58,7 +54,10 @@ export default {
   created() {
     // console.log('headbar created')
     if (Cookies.get(this.getUserKey)) {
-      // console.log('Cookies.get(this.getUserKey)', Cookies.get(this.getUserKey))
+      console.log('Cookies.get(this.getUserKey)', Cookies.get(this.getUserKey))
+      console.log(
+        'get user from cookies:' + JSON.parse(Cookies.get(this.getUserKey))
+      )
       this.setCurrentUser(JSON.parse(Cookies.get(this.getUserKey)))
     }
   }
