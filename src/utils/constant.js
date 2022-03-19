@@ -1,4 +1,5 @@
 export default {
   // Cookie key to get user information
-  UserKey: 'currentUser'
+  UserKey: 'currentUser',
+  ProjectKey: 'currentProject'
 }

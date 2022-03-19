@@ -16,7 +16,7 @@ import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
 
-Vue.use(ElementUI)
+Vue.use(ElementUI, { size: 'mini', zIndex: 3000 })
 // vxe-table v3
 Vue.use(VXETable)
 

@@ -173,7 +173,8 @@ export default {
       'removeProjectById',
       'removeProjectList',
       'addProject',
-      'updateProject'
+      'updateProject',
+      'setCurrentProject'
     ]),
     test1() {
       console.log('new id:', this.getNewId)

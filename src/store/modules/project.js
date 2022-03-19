@@ -4,56 +4,31 @@
  * =================================================
  */
 import axiosAPI from '@/api/api'
-const Mock = require('mockjs')
+import router from '@/router'
+import Cookies from 'js-cookie'
+import CONSTANT from '@/utils/constant'
+const ProjectKey = CONSTANT.ProjectKey
 
 export default {
   state: {
-    projectList: [
-      {
-        id: 1,
-        name: 'Project1aaaaaaa',
-        detail: 'some details11111111',
-        avatar_url: 'https://picsum.photos/id/' + 1 + '/80',
-        ownerId: 1,
-        percentage: 70,
-        ownerName: '@name(true)',
-        createTime: '@datetime',
-        updateTime: '@datetime'
-      },
-      {
-        id: 2,
-        name: 'Project2',
-        detail: 'some details22222222',
-        avatar_url: 'https://picsum.photos/id/' + 2 + '/80',
-        ownerId: 1,
-        percentage: 50,
-        ownerName: '@name(true)',
-        createTime: '@datetime',
-        updateTime: '@datetime'
-      },
-      {
-        id: 3,
-        name: 'Project3',
-        detail: 'some details33333333',
-        avatar_url: 'https://picsum.photos/id/' + 3 + '/80',
-        ownerId: 1,
-        percentage: 100,
-        ownerName: '@name(true)',
-        createTime: '@datetime',
-        updateTime: '@datetime'
-      }
-    ]
+    projectList: [],
+    projectSearchText: '',
+    currentProject: {}
   },
   getters: {
     getProjectList(state) {
       return state.projectList
     },
     getProjectListByPattern(state) {
-      return (pattern) => {
+      if (state.projectList.length === 0) {
+        return state.projectList
+      } else {
+        const pattern = state.projectSearchText
         const regex = new RegExp(pattern)
         return state.projectList.filter((item) => regex.test(item.name))
       }
     },
+    // getNewId -->obsolte!!!
     getNewId(state) {
       const newId =
         Math.max.apply(
@@ -85,12 +60,23 @@ export default {
       if (index !== -1) {
         state.projectList.splice(index, 1, project)
       }
+    },
+    setProjectSearchText(state, val) {
+      state.projectSearchText = val
+    },
+    setCurrentProject(state, project) {
+      state.currentProject = project
+      Cookies.set(ProjectKey, JSON.stringify(project))
+    },
+    removeCurrentProject(state) {
+      state.currentProject = {}
+      Cookies.remove(ProjectKey)
     }
   },
   actions: {
-    loadProjectList({ commit }) {
+    loadProjectList({ commit }, uid) {
       axiosAPI.project
-        .getList()
+        .loadProjectList(uid)
         .then((response) => response.data.content)
         .then((list) => {
           // console.log(list)
@@ -98,28 +84,47 @@ export default {
         })
     },
     removeProjectById({ commit }, projectId) {
-      commit('removeProjectById', projectId)
+      axiosAPI.project
+        .deleteProject(projectId)
+        .then((response) => response.data.status)
+        .then((status) => {
+          if (status === 10000) {
+            commit('removeProjectById', projectId)
+            console.log('vuex delete project')
+          }
+        })
     },
     removeProjectList({ commit }) {
       commit('removeProjectList')
     },
-    addProject({ commit, getters }, project) {
-      const newProject = {
-        id: getters.getNewId,
-        name: project.name,
-        detail: project.detail,
-        avatar_url:
-          'https://picsum.photos/id/' + Mock.mock('@integer(100,200)') + '/80',
-        ownerId: 1,
-        percentage: 0,
-        ownerName: 'someone',
-        createTime: '@datetime',
-        updateTime: '@datetime'
-      }
-      commit('addProject', newProject)
+    addProject({ commit }, formData) {
+      axiosAPI.project
+        .addProject(formData)
+        .then((response) => response.data.status)
+        .then((status) => {
+          if (status === 10000) {
+            commit('addProject', formData)
+            console.log('vuex add project')
+          }
+        })
     },
-    updateProject({ commit }, project) {
-      commit('updateProject', project)
+    updateProject({ commit }, formData) {
+      axiosAPI.project
+        .updateProject(formData)
+        .then((response) => response.data.status)
+        .then((status) => {
+          if (status === 10000) {
+            commit('updateProject', formData)
+            console.log('vuex update project')
+          }
+        })
+    },
+    setCurrentProject({ commit }, project) {
+      commit('setCurrentProject', project)
+      router.push('/home')
+    },
+    removeCurrentProject({ commit }) {
+      commit('removeCurrentProject')
     }
   }
 }
